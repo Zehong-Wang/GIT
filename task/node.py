@@ -201,6 +201,8 @@ def eval_node_few_shot(model, data, split, params):
 
         z_q, y_q, z_s, y_s = z[q_mask], y[q_mask], z[s_mask], y[s_mask]
         if use_outer_emb:
+            if not isinstance(data, Data):
+                data = data[-1].data
             proto_emb = data.class_node_text_feat.to(device)
         else:
             proto_emb = model.get_class_prototypes(z_s, y_s, num_classes).detach()
@@ -224,6 +226,8 @@ def eval_node_few_shot(model, data, split, params):
 
             z_q, y_q, z_s, y_s = z[q_mask], y[q_mask], z[s_mask], y[s_mask]
             if use_outer_emb:
+                if not isinstance(data, Data):
+                    data = data[-1].data
                 proto_emb = data.class_node_text_feat.to(device)
             else:
                 proto_emb = model.get_class_prototypes(z_s, y_s, num_classes).detach()
