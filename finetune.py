@@ -211,10 +211,6 @@ if __name__ == "__main__":
             default_params = yaml.safe_load(f)
             params.update(default_params[task][dataset])
 
-    # if init_params["setting"] in ["zero_shot", "in_context"]:
-    #     if task == 'graph':
-    #         init_params['n_way'] = 2
-    #
     if params["setting"] in ["base_zero_shot", "zero_shot", "in_context"]:
         params["n_task"] = 500
         params["epochs"] = 1
@@ -225,6 +221,7 @@ if __name__ == "__main__":
         name="Data:{} | SFT:{} | PT-Epoch:{}".format(params["dataset"], params["sft_data"], params["pt_epochs"]),
         config=params,
         mode="disabled" if params["debug"] else "online",  # sweep only works in online mode
+        group=params['group'],
         tags=tags,
     )
     params = dict(wandb.config)
