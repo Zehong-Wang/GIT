@@ -277,10 +277,15 @@ def get_instances_each_task(labels, mask, instance_per_task=10):
     for task, (idx_pos, idx_neg) in enumerate(zip(idx_pos, idx_neg)):
         cur_idx, cur_labels = np.array([], dtype=int), np.array([], dtype=int)
 
-        np.random.shuffle(idx_pos)
-        np.random.shuffle(idx_neg)
-        idx_pos = idx_pos[:instance_per_task]
-        idx_neg = idx_neg[:instance_per_task]
+        if len(idx_pos) == 0:
+            idx_pos = np.array([0] * instance_per_task)
+        if len(idx_neg) == 0:
+            idx_neg = np.array([0] * instance_per_task)
+
+        idx_pos = np.random.choice(idx_pos, instance_per_task,
+                                   replace=False if len(idx_pos) > instance_per_task else True)
+        idx_neg = np.random.choice(idx_neg, instance_per_task,
+                                   replace=False if len(idx_neg) > instance_per_task else True)
 
         cur_idx = np.concatenate((cur_idx, idx_pos))
         cur_labels = np.concatenate((cur_labels, np.zeros(len(idx_pos)) + task))
