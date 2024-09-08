@@ -204,7 +204,8 @@ if __name__ == "__main__":
         params['task'] = default_task
     task = params['task']
     if task == "graph":
-        assert params['bs'] != 0
+        if params['bs'] == 0:
+            params['bs'] = 1024
 
     if params["use_params"]:
         with open("ft_param.yaml", "r") as f:
@@ -214,6 +215,9 @@ if __name__ == "__main__":
     if params["setting"] in ["base_zero_shot", "zero_shot", "in_context"]:
         params["n_task"] = 500
         params["epochs"] = 1
+
+    if params['dataset'] == 'products':
+        params['bs'] = 1024
 
     tags = [params['task'], params['setting']]
     wandb.init(

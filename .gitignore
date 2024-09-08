@@ -1,4 +1,4 @@
 /wandb/
 /*.ipynb
 /test*
-/*.sh
+/script/

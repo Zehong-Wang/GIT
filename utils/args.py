@@ -89,7 +89,7 @@ def get_args_finetune():
     parser.add_argument("--setting", type=str, default="base",
                         choices=['base', 'few_shot', 'in_context', 'zero_shot', 'base_zero_shot'])
     parser.add_argument('--save', action='store_true')
-    parser.add_argument("--group", "--exp_group", type=str, default=None)
+    parser.add_argument("--group", "--exp_group", type=str, default='base')
 
     # Few-shot/Zero-shot/In-context Parameters
     parser.add_argument("--n_task", "--n_tasks", type=int, default=20)

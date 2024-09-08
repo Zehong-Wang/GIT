@@ -77,8 +77,8 @@ def get_ft_loader(data, split, params):
 
         val_loader = NeighborLoader(
             data,
-            num_neighbors=[-1] * params["num_layers"],
-            batch_size=10000,
+            num_neighbors=[10] * params["num_layers"],
+            batch_size=params['bs'],
             num_workers=8,
             shuffle=False,
         )
