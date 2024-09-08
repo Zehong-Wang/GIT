@@ -213,7 +213,7 @@ if __name__ == "__main__":
             params.update(default_params[task][dataset])
 
     if params["setting"] in ["base_zero_shot", "zero_shot", "in_context"]:
-        params["n_task"] = 1
+        params["n_task"] = 500
         params["epochs"] = 1
 
     if params['dataset'] == 'products':
