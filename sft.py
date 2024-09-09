@@ -84,15 +84,17 @@ def run(params):
 
         if params['save']:
             if epoch % 10 == 0:
-                template = "lr_{}_hidden_{}_backbone_{}_fp_{}_ep_{}_alignreg_{}_pt_data_{}_sft_data_{}"
+                dir_template = "pt_lr_{}_hidden_{}_backbone_{}_fp_{}_ep_{}_alignreg_{}_pt_data_{}_pt_epochs_{}"
+                template = "sft_lr_{}_sft_data_{}_sft_decay_{}"
                 path = osp.join(params['sft_model_path'],
-                                template.format(params['pt_lr'], params['hidden_dim'], params['backbone'],
-                                                params['pt_feat_p'], params['pt_feat_p'],
-                                                params['pt_align_reg_lambda'],
-                                                params['pretrain_dataset'], params['dataset']))
+                                dir_template.format(params['pt_lr'], params['hidden_dim'], params['backbone'],
+                                                    params['pt_feat_p'], params['pt_feat_p'],
+                                                    params['pt_align_reg_lambda'],
+                                                    params['pretrain_dataset'], params['pt_epochs']),
+                                template.format(params['lr'], params['dataset'], params['decay']))
                 check_path(path)
                 print("Save the instruction fine-tuned model at Epoch {}".format(epoch))
-                sft_model.save(osp.join(path, f"encoder_{params['pt_epochs']}_{epoch}.pt"))
+                sft_model.save(osp.join(path, f"encoder_{epoch}.pt"))
 
     wandb.finish()
 
@@ -107,7 +109,8 @@ if __name__ == "__main__":
     task = domain2task[dataset2domain[dataset]]
     params['task'] = task
     if task == "graph":
-        assert params['bs'] != 0
+        if params['bs'] == 0:
+            params['bs'] = 4096
 
     if params["use_params"]:
         path = osp.join(os.path.dirname(__file__), 'config', 'sft_param.yaml')

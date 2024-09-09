@@ -22,7 +22,7 @@ def get_args_pretrain():
     # Training Parameters
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--epochs", type=int, default=20)
-    parser.add_argument("--lr", type=float, default=1e-6)
+    parser.add_argument("--lr", type=float, default=1e-7)
     parser.add_argument("--decay", type=float, default=1e-8)
     parser.add_argument("--bs", type=int, default=4096)
     parser.add_argument('--fanout', type=int, default=10)
@@ -57,7 +57,7 @@ def get_args_sft():
     # Pre-train Parameters
     parser.add_argument("--pretrain_dataset", "--pretrain_data", "--pt_data", type=str, default="default")
     parser.add_argument("--pt_epochs", type=int, default=10)
-    parser.add_argument('--pt_lr', type=float, default=1e-6)
+    parser.add_argument('--pt_lr', type=float, default=1e-7)
     parser.add_argument('--pt_feat_p', type=float, default=0.2)
     parser.add_argument('--pt_edge_p', type=float, default=0.2)
     parser.add_argument('--pt_align_reg_lambda', type=float, default=0)
@@ -100,14 +100,17 @@ def get_args_finetune():
     parser.add_argument("--n_shot", "--n_shots", type=int, default=3)
     parser.add_argument("--n_query", "--n_queries", type=int, default=3)
 
-    # Pre-train and SFT Parameters
+    # Pre-train
     parser.add_argument("--pt_data", "--pretrain_dataset", "--pretrain_data", type=str, default="default")
     parser.add_argument("--pt_epochs", type=int, default=10)
-    parser.add_argument('--pt_lr', type=float, default=1e-6)
+    parser.add_argument('--pt_lr', type=float, default=1e-7)
     parser.add_argument('--pt_feat_p', type=float, default=0.2)
     parser.add_argument('--pt_edge_p', type=float, default=0.2)
     parser.add_argument('--pt_align_reg_lambda', type=float, default=0)
+
+    # SFT Parameters
     parser.add_argument("--sft_data", "--sft_dataset", type=str, default='na')
+    parser.add_argument('--sft_lr', type=float, default=1e-5)
     parser.add_argument("--sft_epochs", type=int, default=100)
 
     # Encoder Parameters

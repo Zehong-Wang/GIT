@@ -94,7 +94,7 @@ def run(params):
         # Save model
         template = "lr_{}_hidden_{}_backbone_{}_fp_{}_ep_{}_alignreg_{}_pt_data_{}"
 
-        save_path = osp.join(params['model_dir'], template.format(
+        save_path = osp.join(params['model_path'], template.format(
             params["lr"], params["hidden_dim"], params["backbone"],
             params["feat_p"], params["edge_p"], params["align_reg_lambda"],
             params["pretrain_dataset"]))
