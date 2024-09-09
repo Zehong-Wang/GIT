@@ -219,6 +219,9 @@ if __name__ == "__main__":
     if params['dataset'] == 'products':
         params['bs'] = 1024
 
+    if params['dataset'] == 'chempcba':
+        params['n_task'] = 50
+
     tags = [params['task'], params['setting']]
     wandb.init(
         project="SGFM-Finetune",

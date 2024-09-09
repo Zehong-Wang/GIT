@@ -20,7 +20,7 @@ import wandb
 get_loader = get_pt_loader
 
 
-def pretrain_mini_batch(model, loader, optimizer, scheduler=None, **kwargs):
+def pretrain(model, loader, optimizer, scheduler=None, **kwargs):
     model.train()
     device = get_device_from_model(model)
     params = kwargs['params']
@@ -85,25 +85,16 @@ def run(params):
     optimizer = AdamW(pretrain_model.parameters(), lr=params["lr"], weight_decay=params["decay"])
     scheduler = get_scheduler(optimizer, params["use_schedular"], params["epochs"])
 
-    # Start training
-
     for i in range(1, params["epochs"] + 1):
-        # loader = NeighborLoader(
-        #     pretrain_data, input_nodes=train_nodes, num_neighbors=[params['fanout']] * params["num_layers"],
-        #     batch_size=params["bs"], shuffle=True
-        # )
         loader = get_loader(pretrain_data, train_nodes, params)
         print("Number of mini-batches is {} at epoch {}.".format(len(loader), i))
 
-        pretrain_mini_batch(model=pretrain_model, loader=loader, optimizer=optimizer, scheduler=scheduler,
-                            params=params)
+        pretrain(model=pretrain_model, loader=loader, optimizer=optimizer, scheduler=scheduler, params=params)
 
         # Save model
-        # TODO: Anonymize the path
-        model_dir = '/scratch365/zwang43/SGFM/model/pretrain_model'
         template = "lr_{}_hidden_{}_backbone_{}_fp_{}_ep_{}_alignreg_{}_pt_data_{}"
 
-        save_path = osp.join(model_dir, template.format(
+        save_path = osp.join(params['model_dir'], template.format(
             params["lr"], params["hidden_dim"], params["backbone"],
             params["feat_p"], params["edge_p"], params["align_reg_lambda"],
             params["pretrain_dataset"]))
@@ -119,11 +110,13 @@ if __name__ == "__main__":
     params = get_args_pretrain()
     # TODO: Anonymize the path
     params['data_path'] = '/scratch365/zwang43/SGFM/benchmark/cache_data'
+    params['model_path'] = '/scratch365/zwang43/SGFM/model/pretrain_model'
 
     wandb.init(
         project="SGFM-Pretrain",
         name="LR:{} | Layers:{} | Fan:{}".format(params["lr"], params["num_layers"], params["fanout"]),
         mode="disabled" if params["debug"] else "online",
+        group=params['group'],
         config=params,
     )
 

@@ -118,8 +118,9 @@ if __name__ == "__main__":
     wandb.init(
         project="SGFM-SFT",
         name="Data:{} | PT-Epoch:{}".format(str.upper(params["dataset"]), params["pt_epochs"]),
-        config=params,
         mode="disabled" if params["debug"] else "online",  # sweep only works in online mode
+        config=params,
+        group=params['group'],
     )
     params = dict(wandb.config)
     print(params)

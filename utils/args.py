@@ -7,7 +7,8 @@ def get_args_pretrain():
     parser.add_argument("--debug", action="store_true")
 
     # Base Parameters
-    parser.add_argument("--pretrain_dataset", "--pretrain_data", type=str, default="default")
+    parser.add_argument("--pretrain_dataset", "--pretrain_data", "--dataset", type=str, default="default")
+    parser.add_argument("--group", "--exp_group", type=str, default='base')
 
     # Encoder Parameters
     parser.add_argument("--input_dim", type=int, default=768)
@@ -51,6 +52,7 @@ def get_args_sft():
     parser.add_argument("--use_params", action="store_true")
     parser.add_argument("--debug", action="store_true")
     parser.add_argument('--save', action='store_true')
+    parser.add_argument("--group", "--exp_group", type=str, default='base')
 
     # Pre-train Parameters
     parser.add_argument("--pretrain_dataset", "--pretrain_data", "--pt_data", type=str, default="default")
