@@ -82,7 +82,7 @@ def run(params):
         wandb.log({'loss/sft_loss': sft_loss})
 
         if params['save']:
-            if epoch % 10 == 0:
+            if epoch % 5 == 0:
                 dir_template = "pt_lr_{}_hidden_{}_layer_{}_backbone_{}_fp_{}_ep_{}_alignreg_{}_pt_data_{}_pt_epochs_{}"
                 template = "sft_lr_{}_sft_data_{}"
                 path = osp.join(params['sft_model_path'],
@@ -116,6 +116,12 @@ if __name__ == "__main__":
         with open(path, "r") as f:
             default_params = yaml.safe_load(f)
             params.update(default_params[dataset])
+
+    if params['dataset'] == 'chempcba':
+        params['epochs'] = 100
+
+    if params['dataset'] == 'products':
+        params['bs'] = 4096
 
     wandb.init(
         project="SGFM-SFT",
