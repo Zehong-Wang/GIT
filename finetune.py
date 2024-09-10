@@ -128,7 +128,7 @@ def run(params):
 
         if params["bs"] == 0:
             data = deepcopy(graph)
-            if task == 'link_pred':
+            if params['task'] == 'link_pred':
                 data = split(data)
         else:
             # [train_loader, val_loader, test_loader]
@@ -158,15 +158,15 @@ def run(params):
                 }
             )
 
-            if params['save']:
-                template = "lr_{}_hidden_{}_backbone_{}_fp_{}_ep_{}_alignreg_{}_pt_data_{}_sft_data_{}"
-                path = osp.join(params["ft_model_path"],
-                                template.format(params['lr'], params['hidden_dim'], params['backbone'],
-                                                params['feat_p'], params['edge_p'], params['pt_align_reg_lambda'],
-                                                params['pt_data'], params['sft_data']),
-                                params['dataset'], params['task'], params['setting'])
-                check_path(path)
-                torch.save(task_model.encoder.state_dict(), osp.join(path, f"encoder_{idx}_{epoch}.pt"))
+            # if params['save']:
+            #     template = "lr_{}_hidden_{}_backbone_{}_fp_{}_ep_{}_alignreg_{}_pt_data_{}_sft_data_{}"
+            #     path = osp.join(params["ft_model_path"],
+            #                     template.format(params['lr'], params['hidden_dim'], params['backbone'],
+            #                                     params['feat_p'], params['edge_p'], params['pt_align_reg_lambda'],
+            #                                     params['pt_data'], params['sft_data']),
+            #                     params['dataset'], params['task'], params['setting'])
+            #     check_path(path)
+            #     torch.save(task_model.encoder.state_dict(), osp.join(path, f"encoder_{idx}_{epoch}.pt"))
 
         single_best = logger.get_single_best(idx)
         wandb.log({
@@ -174,8 +174,8 @@ def run(params):
             "best/val": single_best["val"],
             "best/test": single_best["test"],
         })
-        if params['save']:
-            shutil.copy(osp.join(path, f'encoder_{idx}_{single_best.epoch}.pt', osp.join(path, f'encoder_{idx}.pt')))
+        # if params['save']:
+        #     shutil.copy(osp.join(path, f'encoder_{idx}_{single_best.epoch}.pt', osp.join(path, f'encoder_{idx}.pt')))
 
     best = logger.get_best()
     wandb.log({
@@ -194,7 +194,7 @@ def run(params):
     wandb.finish()
 
 
-if __name__ == "__main__":
+def main():
     params = get_args_finetune()
     params['data_path'] = '/scratch365/zwang43/SGFM/benchmark/cache_data'  # Should be anonymized
     params['pt_model_path'] = "/scratch365/zwang43/SGFM/model/pretrain_model/"  # Should be anonymized
@@ -238,3 +238,46 @@ if __name__ == "__main__":
     print(params)
 
     run(params)
+
+
+def main_sweep():
+    params = get_args_finetune()
+    params['data_path'] = '/scratch365/zwang43/SGFM/benchmark/cache_data'  # Should be anonymized
+    params['pt_model_path'] = "/scratch365/zwang43/SGFM/model/pretrain_model/"  # Should be anonymized
+    params['sft_model_path'] = "/scratch365/zwang43/SGFM/model/sft_model/"  # Should be anonymized
+    params['ft_model_path'] = "/scratch365/zwang43/SGFM/model/finetune_model/"  # Should be anonymized
+
+    wandb.init(config=params)
+
+    params = dict(wandb.config)
+
+    dataset = params["dataset"]
+    default_task = domain2task[dataset2domain[dataset]]
+    if params['task'] is None:
+        params['task'] = default_task
+    task = params['task']
+    if task == "graph":
+        if params['bs'] == 0:
+            params['bs'] = 1024
+
+    if params["setting"] in ["base_zero_shot", "zero_shot", "in_context"]:
+        params["n_task"] = 500
+        params["epochs"] = 1
+
+    if params['dataset'] == 'products':
+        params['bs'] = 1024
+
+    if params['dataset'] == 'chempcba':
+        params['n_task'] = 50
+
+    print(params)
+
+    # This only works for sweep
+    if isinstance(params['pt_align_reg_lambda'], int):
+        params['pt_align_reg_lambda'] = float(params['pt_align_reg_lambda'])
+
+    run(params)
+
+
+if __name__ == "__main__":
+    main()

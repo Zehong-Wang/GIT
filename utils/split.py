@@ -104,7 +104,10 @@ def few_shot_split(data, params):
 
     fs_splits = []
     for split in splits:
-        train_idx, val_idx, test_idx = mask2idx(split['train']), mask2idx(split['val']), mask2idx(split['test'])
+        if params['no_split']:
+            train_idx = val_idx = test_idx = mask2idx(split['train'] + split['val'] + split['test'])
+        else:
+            train_idx, val_idx, test_idx = mask2idx(split['train']), mask2idx(split['val']), mask2idx(split['test'])
         train_labels, val_labels, test_labels = data.y[train_idx], data.y[val_idx], data.y[test_idx]
 
         train_mask_fs = []
@@ -174,7 +177,10 @@ def few_shot_split_graph(data, params):
     fs_splits = []
     for split in splits:
         # train_labels, val_labels, test_labels = labels[split['train']], labels[split['val']], labels[split['test']]
-        train_mask, val_mask, test_mask = split['train'], split['val'], split['test']
+        if params['no_split']:
+            train_mask = val_mask = test_mask = split['train'] + split['val'] + split['test']
+        else:
+            train_mask, val_mask, test_mask = split['train'], split['val'], split['test']
 
         train_idx_fs = []
         val_idx_s, val_idx_q = [], []

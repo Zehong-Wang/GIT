@@ -94,6 +94,7 @@ def get_args_finetune():
     parser.add_argument("--group", "--exp_group", type=str, default='base')
 
     # Few-shot/Zero-shot/In-context Parameters
+    parser.add_argument("--no_split", action="store_true")
     parser.add_argument("--n_task", "--n_tasks", type=int, default=20)
     parser.add_argument("--n_way", "--n_ways", type=int, default=5)
     parser.add_argument("--n_train", "--n_trains", type=int, default=10)
