@@ -32,7 +32,7 @@ def get_args_pretrain():
     parser.add_argument("--use_schedular", type=bool, default=True)
 
     # Regularizer
-    parser.add_argument("--align_reg_lambda", type=float, default=0)
+    parser.add_argument("--align_reg_lambda", type=float, default=10.0)
 
     # Multi-task
     parser.add_argument("--multitask", action="store_true")
@@ -60,7 +60,7 @@ def get_args_sft():
     parser.add_argument('--pt_lr', type=float, default=1e-7)
     parser.add_argument('--pt_feat_p', type=float, default=0.2)
     parser.add_argument('--pt_edge_p', type=float, default=0.2)
-    parser.add_argument('--pt_align_reg_lambda', type=float, default=0)
+    parser.add_argument('--pt_align_reg_lambda', type=float, default=10.0)
 
     # Encoder Parameters
     parser.add_argument("--input_dim", type=int, default=768)
@@ -74,9 +74,9 @@ def get_args_sft():
     # SFT Parameters
     parser.add_argument("--dataset", "--data", type=str, default='arxiv')
     parser.add_argument("--seed", type=int, default=42)
-    parser.add_argument("--epochs", type=int, default=1000)
-    parser.add_argument("--lr", type=float, default=1e-5)
-    parser.add_argument("--decay", type=float, default=1e-6)
+    parser.add_argument("--epochs", type=int, default=100)
+    parser.add_argument("--lr", type=float, default=1e-6)
+    parser.add_argument("--decay", type=float, default=0)
     parser.add_argument("--bs", type=int, default=0)
 
     args = parser.parse_args()
@@ -106,7 +106,7 @@ def get_args_finetune():
     parser.add_argument('--pt_lr', type=float, default=1e-7)
     parser.add_argument('--pt_feat_p', type=float, default=0.2)
     parser.add_argument('--pt_edge_p', type=float, default=0.2)
-    parser.add_argument('--pt_align_reg_lambda', type=float, default=0)
+    parser.add_argument('--pt_align_reg_lambda', type=float, default=10.0)
 
     # SFT Parameters
     parser.add_argument("--sft_data", "--sft_dataset", type=str, default='na')

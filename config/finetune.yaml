@@ -3,6 +3,7 @@ base:
   pt_epochs: 10
   pt_feat_p: 0.2
   pt_edge_p: 0.2
+  pt_align_reg_lambda: 10
 #node:
 #  cora:
 #    finetune_dataset: cora

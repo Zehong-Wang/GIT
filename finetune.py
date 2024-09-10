@@ -102,19 +102,20 @@ def run(params):
             base_path = params['pt_model_path'] if params["sft_data"] == 'na' else params['sft_model_path']
             path = osp.join(base_path,
                             template.format(params['pt_lr'], params['hidden_dim'], params['num_layers'],
-                                            params['backbone'],
-                                            params['pt_feat_p'], params['pt_edge_p'], params['pt_align_reg_lambda'],
-                                            params['pt_data']))
+                                            params['backbone'], params['pt_feat_p'], params['pt_edge_p'],
+                                            params['pt_align_reg_lambda'], params['pt_data']),
+                            f"encoder_{params['pt_epochs']}.pt")
         else:
             dir_template = "pt_lr_{}_hidden_{}_layer_{}_backbone_{}_fp_{}_ep_{}_alignreg_{}_pt_data_{}_pt_epochs_{}"
             template = "sft_lr_{}_sft_data_{}"
             path = osp.join(params['sft_model_path'],
                             dir_template.format(params['pt_lr'], params['hidden_dim'], params['num_layers'],
                                                 params['backbone'], params['pt_feat_p'], params['pt_feat_p'],
-                                                params['pt_align_reg_lambda'], params['pretrain_dataset'],
-                                                params['pt_epochs']),
-                            template.format(params['sft_lr'], params['sft_data']))
+                                                params['pt_align_reg_lambda'], params['pt_data'], params['pt_epochs']),
+                            template.format(params['sft_lr'], params['sft_data']),
+                            f"encoder_{params['sft_epochs']}.pt")
         check_path(path)
+        encoder = load_params(encoder, path)
         print("Load the pretrained model from {}".format(path))
 
     model = TaskModel(encoder, num_classes=graph.num_classes)

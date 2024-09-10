@@ -70,9 +70,9 @@ def run(params):
                         template.format(params['pt_lr'], params['hidden_dim'], params['num_layers'], params['backbone'],
                                         params['pt_feat_p'], params['pt_feat_p'], params['pt_align_reg_lambda'],
                                         params['pretrain_dataset']))
+        sft_model = load_params(sft_model, osp.join(path, f'encoder_{params["pt_epochs"]}.pt'))
         print("Loader the pretrained encoder model from {}".format(path))
 
-        sft_model = load_params(sft_model, osp.join(path, f'encoder_{params["pt_epochs"]}.pt'))
     sft_model = sft_model.to(device)
 
     optimizer = AdamW(sft_model.parameters(), lr=params["lr"], weight_decay=params["decay"])
