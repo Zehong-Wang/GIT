@@ -92,12 +92,11 @@ def run(params):
         pretrain(model=pretrain_model, loader=loader, optimizer=optimizer, scheduler=scheduler, params=params)
 
         # Save model
-        template = "lr_{}_hidden_{}_backbone_{}_fp_{}_ep_{}_alignreg_{}_pt_data_{}"
+        template = "lr_{}_hidden_{}_layer_{}_backbone_{}_fp_{}_ep_{}_alignreg_{}_pt_data_{}"
 
         save_path = osp.join(params['model_path'], template.format(
-            params["lr"], params["hidden_dim"], params["backbone"],
-            params["feat_p"], params["edge_p"], params["align_reg_lambda"],
-            params["pretrain_dataset"]))
+            params["lr"], params["hidden_dim"], params['num_layers'], params["backbone"],
+            params["feat_p"], params["edge_p"], params["align_reg_lambda"], params["pretrain_dataset"]))
         check_path(save_path)
 
         pretrain_model.save_encoder(osp.join(save_path, f"encoder_{i}.pt"))

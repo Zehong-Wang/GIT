@@ -97,23 +97,25 @@ def run(params):
     )
 
     if params["pt_data"] != 'na':
-        template = "lr_{}_hidden_{}_backbone_{}_fp_{}_ep_{}_alignreg_{}_pt_data_{}"
-        base_path = params['pt_model_path'] if params["sft_data"] == 'na' else params['sft_model_path']
-        path = osp.join(base_path,
-                        template.format(params['pt_lr'], params['hidden_dim'], params['backbone'],
-                                        params['pt_feat_p'], params['pt_edge_p'], params['pt_align_reg_lambda'],
-                                        params['pt_data']))
-        if params["sft_data"] != 'na':
-            path += "_sft_data_{}".format(params["sft_data"])
+        if params['sft_data'] == 'na':
+            template = "lr_{}_hidden_{}_layer_{}_backbone_{}_fp_{}_ep_{}_alignreg_{}_pt_data_{}"
+            base_path = params['pt_model_path'] if params["sft_data"] == 'na' else params['sft_model_path']
+            path = osp.join(base_path,
+                            template.format(params['pt_lr'], params['hidden_dim'], params['num_layers'],
+                                            params['backbone'],
+                                            params['pt_feat_p'], params['pt_edge_p'], params['pt_align_reg_lambda'],
+                                            params['pt_data']))
+        else:
+            dir_template = "pt_lr_{}_hidden_{}_layer_{}_backbone_{}_fp_{}_ep_{}_alignreg_{}_pt_data_{}_pt_epochs_{}"
+            template = "sft_lr_{}_sft_data_{}"
+            path = osp.join(params['sft_model_path'],
+                            dir_template.format(params['pt_lr'], params['hidden_dim'], params['num_layers'],
+                                                params['backbone'], params['pt_feat_p'], params['pt_feat_p'],
+                                                params['pt_align_reg_lambda'], params['pretrain_dataset'],
+                                                params['pt_epochs']),
+                            template.format(params['sft_lr'], params['sft_data']))
         check_path(path)
         print("Load the pretrained model from {}".format(path))
-
-        if params['sft_data'] == 'na':
-            encoder_path = osp.join(path, f'encoder_{params["pt_epochs"]}.pt')
-        else:
-            encoder_path = osp.join(path, f'encoder_{params["pt_epochs"]}_{params["sft_epochs"]}.pt')
-
-        encoder = load_params(encoder, encoder_path)
 
     model = TaskModel(encoder, num_classes=graph.num_classes)
     model = model.to(device)

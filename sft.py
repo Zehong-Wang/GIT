@@ -65,11 +65,10 @@ def run(params):
     )
     # Load Pretrained Model
     if params["pretrain_dataset"] != 'na':
-        template = "lr_{}_hidden_{}_backbone_{}_fp_{}_ep_{}_alignreg_{}_pt_data_{}"
+        template = "lr_{}_hidden_{}_layer_{}_backbone_{}_fp_{}_ep_{}_alignreg_{}_pt_data_{}"
         path = osp.join(params['pt_model_path'],
-                        template.format(params['pt_lr'], params['hidden_dim'], params['backbone'],
-                                        params['pt_feat_p'], params['pt_feat_p'],
-                                        params['pt_align_reg_lambda'],
+                        template.format(params['pt_lr'], params['hidden_dim'], params['num_layers'], params['backbone'],
+                                        params['pt_feat_p'], params['pt_feat_p'], params['pt_align_reg_lambda'],
                                         params['pretrain_dataset']))
         print("Loader the pretrained encoder model from {}".format(path))
 
@@ -84,14 +83,14 @@ def run(params):
 
         if params['save']:
             if epoch % 10 == 0:
-                dir_template = "pt_lr_{}_hidden_{}_backbone_{}_fp_{}_ep_{}_alignreg_{}_pt_data_{}_pt_epochs_{}"
-                template = "sft_lr_{}_sft_data_{}_sft_decay_{}"
+                dir_template = "pt_lr_{}_hidden_{}_layer_{}_backbone_{}_fp_{}_ep_{}_alignreg_{}_pt_data_{}_pt_epochs_{}"
+                template = "sft_lr_{}_sft_data_{}"
                 path = osp.join(params['sft_model_path'],
-                                dir_template.format(params['pt_lr'], params['hidden_dim'], params['backbone'],
-                                                    params['pt_feat_p'], params['pt_feat_p'],
-                                                    params['pt_align_reg_lambda'],
-                                                    params['pretrain_dataset'], params['pt_epochs']),
-                                template.format(params['lr'], params['dataset'], params['decay']))
+                                dir_template.format(params['pt_lr'], params['hidden_dim'], params['num_layers'],
+                                                    params['backbone'], params['pt_feat_p'], params['pt_feat_p'],
+                                                    params['pt_align_reg_lambda'], params['pretrain_dataset'],
+                                                    params['pt_epochs']),
+                                template.format(params['lr'], params['dataset']))
                 check_path(path)
                 print("Save the instruction fine-tuned model at Epoch {}".format(epoch))
                 sft_model.save(osp.join(path, f"encoder_{epoch}.pt"))
