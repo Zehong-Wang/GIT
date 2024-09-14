@@ -7,4 +7,4 @@
 #$ -pe smp 8
 #$ -l gpu=1
 
-~/.conda/envs/OFA/bin/python sweep/citation/in_context.py
+~/.conda/envs/OFA/bin/python sweep/kg/in_context.py

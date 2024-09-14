@@ -23,6 +23,7 @@ def get_sft_loader(data, params):
     task = params["task"]
 
     if task == "node":
+        data = clean_data(data)
         loader = NeighborLoader(
             data,
             num_neighbors=[10] * params["num_layers"],

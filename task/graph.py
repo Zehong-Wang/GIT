@@ -157,7 +157,7 @@ def eval_graph_few_shot(model, data, split, params):
         params['n_task'], -1)
     test_idx = np.concatenate([test_idx_s, test_idx_q])
 
-    test_loader = DataLoader(data[test_idx], batch_size=10000, num_workers=1, shuffle=False)
+    test_loader = DataLoader(data[test_idx], batch_size=params['bs'], num_workers=1, shuffle=False)
 
     z_list = []
     for sg in test_loader:
@@ -219,7 +219,7 @@ def eval_graph_few_shot(model, data, split, params):
             params['n_task'], -1)
         val_idx = np.concatenate([val_idx_s, val_idx_q])
 
-        val_loader = DataLoader(data[val_idx], batch_size=10000, num_workers=1, shuffle=False)
+        val_loader = DataLoader(data[val_idx], batch_size=params['bs'], num_workers=1, shuffle=False)
         z_list = []
         for sg in val_loader:
             batch = sg.batch.to(device)
