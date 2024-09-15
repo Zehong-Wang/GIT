@@ -4,3 +4,104 @@ base:
   pt_feat_p: 0.2
   pt_edge_p: 0.2
   pt_align_reg_lambda: 10
+node:
+  cora:
+    normalize: "none"
+    sft_epochs: 115
+    sft_lr: 1e-4
+  citeseer:
+    normalize: "batch"
+    sft_epochs: 170
+    sft_lr: 1e-4
+  pubmed:
+    normalize: "none"
+    sft_epochs: 250
+    sft_lr: 1e-8
+  arxiv23:
+    normalize: "batch"
+    sft_epochs: 200
+    sft_lr: 1e-4
+  dblp:
+    normalize: "batch"
+    sft_epochs: 120
+    sft_lr: 1e-4
+  bookhis:
+    normalize: "batch"
+    sft_epochs: 220
+    sft_lr: 1e-4
+  bookchild:
+    normalize: "batch"
+    sft_epochs: 220
+    sft_lr: 1e-4
+  elecomp:
+    normalize: "none"
+    sft_epochs: 10
+    sft_lr: 1e-8
+  elephoto:
+    normalize: "batch"
+    sft_epochs: 260
+    sft_lr: 1e-7
+  sportsfit:
+    normalize: "batch"
+    sft_epochs: 240
+    sft_lr: 1e-4
+  amazonratings:
+    normalize: "batch"
+    sft_epochs: 90
+    sft_lr: 1e-7
+edge:
+  WN18RR:
+    normalize: "none"
+    sft_epochs: 500
+    sft_lr: 1e-5
+  codex_s:
+    normalize: "batch"
+    sft_epochs: 400
+    sft_lr: 1e-4
+  codex_m:
+    normalize: "none"
+    sft_epochs: 300
+    sf_lr: 1e-5
+  codex_l:
+    normalize: "batch"
+    sft_epochs: 240
+    sft_lr: 1e-5
+  NELL995:
+    normalize: "batch"
+    sft_epochs: 90
+    sft_lr: 1e-4
+  GDELT:
+    normalize: "none"
+    sft_epochs: 400
+    sft_lr: 1e-4
+  ICEWS1819:
+    normalize: "batch"
+    sft_epochs: 100
+    sft_lr: 1e-5
+graph:
+  chemhiv:
+    normalize: "batch"
+    sft_epochs: 70
+    sft_lr: 1e-4
+  bbbp:
+    normalize: "batch"
+    sft_epochs: 100
+    sft_lr: 1e-7
+  bace:
+    normalize: "batch"
+    sft_epochs: 15
+    sft_lr: 1e-7
+  toxcast:
+
+  cyp450:
+    normalize: "batch"
+    sft_epochs: 40
+    sft_lr: 1e-7
+  tox21:
+    normalize: "batch"
+    sft_epochs: 10
+    sft_lr: 1e-6
+  muv:
+    normalize: "batch"
+    sft_epochs: 40
+    sft_lr: 1e-8

@@ -2,9 +2,9 @@
 
 #$ -M zwang43@nd.edu
 #$ -m abe
-#$ -N In-context
+#$ -N Base-KG
 #$ -q gpu@@yye7_lab
 #$ -pe smp 8
 #$ -l gpu=1
 
-~/.conda/envs/OFA/bin/python sweep/kg/in_context.py
+~/.conda/envs/OFA/bin/python sweep/kg/base.py

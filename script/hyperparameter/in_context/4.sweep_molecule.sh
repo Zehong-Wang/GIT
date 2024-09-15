@@ -2,9 +2,9 @@
 
 #$ -M zwang43@nd.edu
 #$ -m abe
-#$ -N Zero-shot
+#$ -N In-context-Molecule
 #$ -q gpu@@yye7_lab
 #$ -pe smp 8
 #$ -l gpu=1
 
-~/.conda/envs/OFA/bin/python sweep/kg/zero_shot.py
+~/.conda/envs/OFA/bin/python sweep/molecule/in_context.py

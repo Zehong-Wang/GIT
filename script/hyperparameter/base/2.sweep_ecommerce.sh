@@ -2,9 +2,9 @@
 
 #$ -M zwang43@nd.edu
 #$ -m abe
-#$ -N In-context
+#$ -N Base-Ecommerce
 #$ -q gpu@@yye7_lab
 #$ -pe smp 8
 #$ -l gpu=1
 
-~/.conda/envs/OFA/bin/python sweep/molecule/in_context.py
+~/.conda/envs/OFA/bin/python sweep/ecommerce/base.py

@@ -2,7 +2,7 @@
 
 #$ -M zwang43@nd.edu
 #$ -m abe
-#$ -N In-context
+#$ -N In-context-Ecommerce
 #$ -q gpu@@yye7_lab
 #$ -pe smp 8
 #$ -l gpu=1
