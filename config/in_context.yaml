@@ -1,115 +1,123 @@
 base:
-  pt_lr: 1e-7
+  pt_lr: 0.0000001
   pt_epochs: 10
   pt_feat_p: 0.2
   pt_edge_p: 0.2
-  pt_align_reg_lambda: 10
+  pt_align_reg_lambda: 10.0
 node:
   cora:
     normalize: "none"
     sft_epochs: 50
-    sft_lr: 1e-8
+    sft_lr: 0.00000001
   citeseer:
     normalize: "none"
     sft_epochs: 50
-    sft_lr: 1e-5
+    sft_lr: 0.00001
   pubmed:
     normalize: "none"
     sft_epochs: 20
-    sft_lr: 1e-8
+    sft_lr: 0.00000001
   arxiv23:
     normalize: "batch"
     sft_epochs: 5
-    sft_lr: 1e-8
+    sft_lr: 0.00000001
+  arxiv:
+
   dblp:
     normalize: "batch"
     sft_epochs: 120
-    sft_lr: 1e-5
+    sft_lr: 0.00001
   bookhis:
     normalize: "none"
     sft_epochs: 20
-    sft_lr: 1e-8
+    sft_lr: 0.00000001
   bookchild:
     normalize: "batch"
     sft_epochs: 20
-    sft_lr: 1e-8
+    sft_lr: 0.00000001
   elecomp:
     normalize: "none"
     sft_epochs: 20
-    sft_lr: 1e-8
+    sft_lr: 0.00000001
   elephoto:
     normalize: "none"
     sft_epochs: 40
-    sft_lr: 1e-8
+    sft_lr: 0.00000001
   sportsfit:
     normalize: "none"
     sft_epochs: 10
-    sft_lr: 1e-8
+    sft_lr: 0.00000001
   amazonratings:
     normalize: "none"
     sft_epochs: 30
-    sft_lr: 1e-5
+    sft_lr: 0.00001
+  products:
 edge:
   WN18RR:
     normalize: "batch"
     sft_epochs: 30
-    sft_lr: 1e-4
+    sft_lr: 0.0001
   codex_s:
     normalize: "batch"
     sft_epochs: 10
-    sft_lr: 1e-8
+    sft_lr: 0.00000001
   codex_m:
     normalize: "batch"
     sft_epochs: 280
-    sft_lr: 1e-8
+    sft_lr: 0.00000001
   codex_l:
     normalize: "batch"
     sft_epochs: 230
-    sft_lr: 1e-8
+    sft_lr: 0.00000001
   NELL995:
     normalize: "batch"
     sft_epochs: 10
-    sft_lr: 1e-8
+    sft_lr: 0.00000001
   GDELT:
     normalize: "batch"
     sft_epochs: 170
-    sft_lr: 1e-6
+    sft_lr: 0.000001
   ICEWS1819:
     normalize: "batch"
     sft_epochs: 100
-    sft_lr: 1e-7
+    sft_lr: 0.0000001
   Enron:
     normalize: "none"
     sft_epochs: 20
-    sft_lr: 1e-4
+    sft_lr: 0.0001
   Googlemap_CT:
     normalize: "none"
     sft_epochs: 300
-    sft_lr: 1e-6
+    sft_lr: 0.000001
+  FB15K237:
+
 graph:
   chemhiv:
     normalize: "none"
     sft_epochs: 5
-    sft_lr: 1e-4
+    sft_lr: 0.0001
   bbbp:
     normalize: "batch"
     sft_epochs: 100
-    sft_lr: 1e-6
+    sft_lr: 0.000001
   bace:
     normalize: "batch"
     sft_epochs: 20
-    sft_lr: 1e-4
+    sft_lr: 0.0001
   toxcast:
-
+    normalize: "batch"
+    sft_epochs: 25
+    sft_lr: 0.0001
   cyp450:
     normalize: "batch"
     sft_epochs: 90
-    sft_lr: 1e-6
+    sft_lr: 0.000001
   tox21:
     normalize: "batch"
     sft_epochs: 15
-    sft_lr: 1e-4
+    sft_lr: 0.0001
   muv:
     normalize: "batch"
     sft_epochs: 15
-    sft_lr: 1e-8
+    sft_lr: 0.00000001
+  chempcba:
