@@ -211,8 +211,9 @@ def main():
             params['bs'] = 1024
 
     if params["use_params"]:
-        with open("ft_param.yaml", "r") as f:
+        with open(f"config/{params['setting']}.yaml", "r") as f:
             default_params = yaml.safe_load(f)
+            params.update(default_params['base'])
             params.update(default_params[task][dataset])
 
     if params["setting"] in ["base_zero_shot", "zero_shot", "in_context"]:

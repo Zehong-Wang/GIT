@@ -9,6 +9,7 @@ def get_args_pretrain():
     # Base Parameters
     parser.add_argument("--pretrain_dataset", "--pretrain_data", "--dataset", type=str, default="default")
     parser.add_argument("--group", "--exp_group", type=str, default='base')
+    parser.add_argument('--train_ratio', type=float, default=1.0)
 
     # Encoder Parameters
     parser.add_argument("--input_dim", type=int, default=768)

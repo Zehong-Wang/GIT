@@ -45,12 +45,14 @@ def sft_graph(model, data, optimizer):
         y_neg = (sg.y == 0).float()
         y_pos = torch.matmul(y_pos, pos_class_node_text_feat) / (y_pos.sum(dim=1) + EPS).view(-1, 1)
         y_neg = torch.matmul(y_neg, neg_class_node_text_feat) / (y_neg.sum(dim=1) + EPS).view(-1, 1)
-        y = (y_pos + y_neg).to(device)
+        y_pos = y_pos.to(device)
+        y_neg = y_neg.to(device)
+        # y = (y_pos + y_neg).to(device)
 
         z = model.encode_graph(x, edge_index, batch, pool="mean")
         y_pred = model.pooling_lin(z)
 
-        loss = F.mse_loss(y_pred, y)
+        loss = (F.mse_loss(y_pred, y_pos) + F.mse_loss(y_pred, y_neg)) / 2
 
         optimizer.zero_grad()
         loss.backward()

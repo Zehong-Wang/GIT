@@ -48,7 +48,9 @@ pretrain_datasets = {
     'codex_l': ['codex_l'],
     'NELL995': ['NELL995'],
     'GDELT': ['GDELT'],
-    'ICEWS1819': ['ICEWS1819']
+    'ICEWS1819': ['ICEWS1819'],
+    'Enron': ['Enron'],
+    'Googlemap_CT': ['Googlemap_CT'],
 }
 domain2task = {
     'citation': 'node',
@@ -134,7 +136,7 @@ class VirtualNodeAugmentor:
 
 def preprocess(data):
     dataset_name = data.name
-    if dataset_name in citation_datasets + ecommerce_datasets + kg_datasets:
+    if dataset_name in citation_datasets + ecommerce_datasets + kg_datasets + temporal_datasets:
         data.x = torch.arange(data.num_nodes)
 
     elif dataset_name in molecule_datasets:

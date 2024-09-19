@@ -1,4 +1,5 @@
 import os.path as osp
+import random
 from copy import deepcopy
 
 import torch
@@ -71,6 +72,8 @@ def run(params):
 
     pretrain_data, task_node_idx_dict = unified_data(params)
     train_nodes = torch.concat(list(task_node_idx_dict.values()))
+    if params['train_ratio'] != 1:
+        train_nodes = torch.tensor(random.sample(train_nodes.tolist(), int(len(train_nodes) * params['train_ratio'])))
     print("Number of training nodes is {}".format(len(train_nodes)))
 
     encoder = Encoder(
@@ -93,6 +96,8 @@ def run(params):
 
         # Save model
         template = "lr_{}_hidden_{}_layer_{}_backbone_{}_fp_{}_ep_{}_alignreg_{}_pt_data_{}"
+        if params['train_ratio'] != 1:
+            template += "_{}".format(params['train_ratio'])
 
         save_path = osp.join(params['model_path'], template.format(
             params["lr"], params["hidden_dim"], params['num_layers'], params["backbone"],

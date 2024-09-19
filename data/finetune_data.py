@@ -188,17 +188,20 @@ def get_snapshot(data, start, end, idx, to_undirected=False):
     test_mask = idx2mask(test_idx, num_edges)
 
     print(f"Snapshot: {idx}, #Nodes: {data.x.shape[0]}, #Edges: {num_edges}")
+    name = f'{name}_{idx}' if mask.sum() != data.t.shape[0] else f'{name}'
 
     return Data(node_text_feat=data.x, edge_index=edge_index, edge_text_feat=edge_attr,
                 y=y, train_mask=train_mask, val_mask=val_mask, test_mask=test_mask,
-                num_classes=data.num_classes, t=t_range, name=f'{name}_{idx}')
+                num_classes=data.num_classes, t=t_range, name=name)
 
 
 def temporal_graph(params):
     data_dir = params['data_path']
     dataset_name = params['dataset']
-    snapshot_num = params['snapshot_num']
-    snapshot_idx = params['snapshot_idx']
+    # snapshot_num = params['snapshot_num'] # To .get()
+    # snapshot_idx = params['snapshot_idx'] # To .get()
+    snapshot_num = params.get('snapshot_num', 1)
+    snapshot_idx = params.get('snapshot_idx', 0)
 
     assert snapshot_idx < snapshot_num
     assert dataset_name in temporal_datasets
