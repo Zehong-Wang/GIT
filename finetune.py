@@ -140,8 +140,6 @@ def run(params):
         optimizer = AdamW(task_model.parameters(), lr=params["lr"], weight_decay=params["decay"])
         stopper = EarlyStopping(patience=params["early_stop"])
 
-        print(get_n_params(task_model))
-
         for epoch in range(1, params["epochs"] + 1):
             loss = finetune(model=task_model, data=data, split=split, optimizer=optimizer, params=params)
             result = evaluate(model=task_model, data=data, split=split, params=params)
