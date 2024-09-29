@@ -7,7 +7,7 @@ print(os.path.abspath(""))
 
 from finetune import main, main_sweep
 
-dataset = 'bookchild' # ['bookhis', 'bookchild', 'elecomp', 'elephoto', 'sportsfit', 'amazonratings']
+dataset = 'products' # ['bookhis', 'bookchild', 'elecomp', 'elephoto', 'sportsfit', 'amazonratings']
 
 sweep_config = {
     "project": "SGFM-Finetune",
@@ -23,7 +23,8 @@ sweep_config = {
         "pt_align_reg_lambda": {"value": 10.0},
 
         "pt_data": {"value": "default"},
-        "sft_data": {"value": "products"},
+        "sft_data": {"value": "na"},
+        # "sft_data": {"value": "products"},
         "dataset": {"value": dataset},
         "task": {"value": "node"},
         "group": {"value": f"sweep-ecommerce-base"},

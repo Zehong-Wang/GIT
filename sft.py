@@ -117,7 +117,7 @@ if __name__ == "__main__":
             default_params = yaml.safe_load(f)
             params.update(default_params[dataset])
 
-    if params['dataset'] == 'chempcba':
+    if params['dataset'] in ['chempcba', 'chemhiv']:
         params['epochs'] = 100
 
     if params['dataset'] == 'products':

@@ -7,11 +7,11 @@ print(os.path.abspath(""))
 
 from finetune import main, main_sweep
 
-dataset = 'arxiv' # [cora, citeseer, pubmed, dblp, arxiv23, arxiv]
+dataset = 'FB15K237' # ['WN18RR', 'FB15K237', 'codex_s', 'codex_m', 'codex_l', 'NELL995', 'GDELT', 'ICEWS1819']
 
 sweep_config = {
     "project": "SGFM-Finetune",
-    "name": f"Citation FT Learning Hyper-parameter Tuning -- {dataset}",
+    "name": f"KG FT Learning Hyper-parameter Tuning -- {dataset}",
     "method": "bayes",
     "metric": {"goal": "maximize", "name": "final/test_mean"},
 
@@ -23,11 +23,11 @@ sweep_config = {
         "pt_align_reg_lambda": {"value": 10.0},
 
         "pt_data": {"value": "default"},
-        # "sft_data": {"value": "arxiv"},
         "sft_data": {"value": "na"},
+        # "sft_data": {"value": "FB15K237"},
         "dataset": {"value": dataset},
-        "task": {"value": "node"},
-        "group": {"value": f"sweep-citation-base"},
+        "task": {"value": "edge"},
+        "group": {"value": f"sweep-kg-base"},
 
         "sft_epochs": {"value": 100},
         "sft_lr": {"values": [1e-4, 1e-5, 1e-6, 1e-7, 1e-8]},

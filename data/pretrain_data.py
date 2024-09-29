@@ -51,6 +51,14 @@ pretrain_datasets = {
     'ICEWS1819': ['ICEWS1819'],
     'Enron': ['Enron'],
     'Googlemap_CT': ['Googlemap_CT'],
+    'scaling_law_1': ['arxiv', 'chempcba', 'FB15K237'],
+    'scaling_law_2': ['arxiv', 'chempcba', 'FB15K237', 'products', 'WN18RR'],
+    'scaling_law_3': ['arxiv', 'chempcba', 'FB15K237', 'products', 'WN18RR', 'chemblpre', 'arxiv23', 'amazonratings',
+                      'NELL995', 'Enron'],
+    'scaling_law_4': ['arxiv', 'cora', 'citeseer', 'pubmed', 'arxiv23', 'dblp', 'bookhis', 'bookchild', 'elecomp',
+                      'elephoto', 'sportsfit', 'amazonratings', 'products', 'chemblpre', 'chempcba', 'chemhiv', 'bbbp',
+                      'bace', 'toxcast', 'cyp450', 'tox21', 'muv', 'WN18RR', 'FB15K237', 'codex_s', 'codex_m',
+                      'codex_l', 'NELL995', 'GDELT', 'ICEWS1819', 'Enron', 'Googlemap_CT'],
 }
 domain2task = {
     'citation': 'node',

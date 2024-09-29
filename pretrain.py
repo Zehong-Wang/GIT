@@ -52,7 +52,7 @@ def pretrain(model, loader, optimizer, scheduler=None, **kwargs):
         if scheduler:
             scheduler.step()
 
-        model.ema_update_sem_encoder(decay=params["ema"])
+        # model.ema_update_sem_encoder(decay=params["ema"])
 
         wandb.log(
             {

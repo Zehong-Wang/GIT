@@ -7,35 +7,36 @@ print(os.path.abspath(""))
 
 from finetune import main, main_sweep
 
-dataset = 'bace' # ['chempcba', 'chemhiv', 'bbbp', 'bace', 'toxcast', 'cyp450', 'tox21', 'muv']
+dataset = 'arxiv23' # [cora, citeseer, pubmed, dblp, arxiv23, arxiv]
 
 sweep_config = {
     "project": "SGFM-Finetune",
-    "name": f"Molecule Zero-shot Learning Hyper-parameter Tuning -- {dataset}",
-    "method": "random",
+    "name": f"Citation-Link FT Learning Hyper-parameter Tuning -- {dataset}",
+    "method": "bayes",
     "metric": {"goal": "maximize", "name": "final/test_mean"},
 
     "parameters": {
-        "setting": {"value": "zero_shot"},
+        "setting": {"value": "base"},
         "pt_lr": {"value": 1e-7},
         "pt_feat_p": {"value": 0.2},
         "pt_edge_p": {"value": 0.2},
         "pt_align_reg_lambda": {"value": 10.0},
-        "no_split": {"value": True},
 
         "pt_data": {"value": "default"},
-        "sft_data": {"value": "chemhiv"},
-
+        "sft_data": {"value": "arxiv"},
         "dataset": {"value": dataset},
-        "group": {"value": f"sweep-molecule-zero-shot"},
+        "task": {"value": "link_pred"},
+        "group": {"value": f"sweep-citation-base"},
 
-        "sft_epochs": {"min": 5, "max": 100, "q": 5, "distribution": "q_uniform"},
+        "sft_epochs": {"value": 100},
         "sft_lr": {"values": [1e-4, 1e-5, 1e-6, 1e-7, 1e-8]},
-        "normalize": {"values": ["batch", "none"]}
 
+        "normalize": {"values": ["batch", "none"]},
+        "lr": {"values": [1e-3, 1e-4, 1e-5, 1e-6]},
+        "decay": {"values": [0.0, 1e-6]},
     },
 }
 
 sweep_id = wandb.sweep(sweep=sweep_config)
 
-wandb.agent(sweep_id, function=main_sweep, count=30)
+wandb.agent(sweep_id, function=main_sweep, count=80)

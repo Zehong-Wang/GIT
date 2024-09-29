@@ -7,9 +7,12 @@
 #$ -pe smp 8
 #$ -l gpu=1
 
-lr=1e-8
 
-for data in arxiv products chempcba FB15K237
+for lr in 1e-8 1e-7 1e-6 1e-5 1e-4
 do
-    ~/.conda/envs/OFA/bin/python sft.py --save --data $data --lr $lr --pt_data default --pt_lr 1e-7 --pt_feat_p 0.2 --pt_edge_p 0.2 --pt_align_reg_lambda 10 --pt_epochs 10 --epochs 500 --group sft-lr
+    #for data in arxiv products chempcba FB15K237
+    for data in chemhiv
+    do
+        ~/.conda/envs/OFA/bin/python sft.py --save --data $data --lr $lr --pt_data default --pt_lr 1e-7 --pt_feat_p 0.2 --pt_edge_p 0.2 --pt_align_reg_lambda 10 --pt_epochs 10 --epochs 500 --group sft-lr
+    done
 done

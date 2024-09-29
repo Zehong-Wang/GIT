@@ -47,12 +47,13 @@ def sft_graph(model, data, optimizer):
         y_neg = torch.matmul(y_neg, neg_class_node_text_feat) / (y_neg.sum(dim=1) + EPS).view(-1, 1)
         y_pos = y_pos.to(device)
         y_neg = y_neg.to(device)
-        # y = (y_pos + y_neg).to(device)
+        y = y_pos + y_neg
 
         z = model.encode_graph(x, edge_index, batch, pool="mean")
         y_pred = model.pooling_lin(z)
 
-        loss = (F.mse_loss(y_pred, y_pos) + F.mse_loss(y_pred, y_neg)) / 2
+        # loss = (F.mse_loss(y_pred, y_pos) + F.mse_loss(y_pred, y_neg)) / 2
+        loss = F.mse_loss(y_pred, y)
 
         optimizer.zero_grad()
         loss.backward()
@@ -67,7 +68,7 @@ def ft_graph(model, data, split, optimizer, params):
     device = get_device_from_model(model)
 
     setting = params["setting"]
-    if setting in ['in_context', 'zero_shot']:
+    if setting in ['in_context', 'zero_shot', 'base_zero_shot']:
         return 0
 
     total_loss = 0
@@ -98,7 +99,7 @@ def eval_graph(model, data, split, params):
     model.eval()
     setting = params["setting"]
 
-    if setting in ['base']:
+    if setting in ['base', 'base_zero_shot']:
         train_loader, val_loader, test_loader = data
 
         # train_value = eval_graph_base(model, train_loader, params)
@@ -118,6 +119,12 @@ def eval_graph(model, data, split, params):
 def eval_graph_base(model, loader, params):
     device = get_device_from_model(model)
 
+    use_outer_emb = params['setting'] == 'base_zero_shot'
+    if use_outer_emb:
+        proto_emb = loader.dataset.data.class_node_text_feat.to(device)
+        proto_emb = proto_emb[:len(proto_emb) // 2]
+        proto_emb = proto_emb.repeat(1, 1)
+
     y_list, y_pred_list = [], []
     for sg in loader:
         batch = sg.batch.to(device)
@@ -127,7 +134,7 @@ def eval_graph_base(model, loader, params):
 
         z = model.encode_graph(x, edge_index, batch, pool="mean")
         z = model.pooling_lin(z)
-        y_pred = model.classify(z)
+        y_pred = model.classify(z) if not use_outer_emb else model.proto_classify(z, proto_emb)
 
         y_list.append(y.detach())
         y_pred_list.append(y_pred.detach())

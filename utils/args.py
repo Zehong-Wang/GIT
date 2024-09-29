@@ -104,6 +104,7 @@ def get_args_finetune():
 
     # Pre-train
     parser.add_argument("--pt_data", "--pretrain_dataset", "--pretrain_data", type=str, default="default")
+    parser.add_argument('--train_ratio', type=float, default=1.0)
     parser.add_argument("--pt_epochs", type=int, default=10)
     parser.add_argument('--pt_lr', type=float, default=1e-7)
     parser.add_argument('--pt_feat_p', type=float, default=0.2)

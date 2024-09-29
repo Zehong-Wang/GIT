@@ -7,16 +7,16 @@ print(os.path.abspath(""))
 
 from finetune import main, main_sweep
 
-dataset = 'bace' # ['chempcba', 'chemhiv', 'bbbp', 'bace', 'toxcast', 'cyp450', 'tox21', 'muv']
+dataset = 'tox21' # ['chempcba', 'chemhiv', 'bbbp', 'bace', 'toxcast', 'cyp450', 'tox21', 'muv']
 
 sweep_config = {
     "project": "SGFM-Finetune",
-    "name": f"Molecule Zero-shot Learning Hyper-parameter Tuning -- {dataset}",
+    "name": f"Molecule Base-Zero-shot Learning Hyper-parameter Tuning -- {dataset}",
     "method": "random",
     "metric": {"goal": "maximize", "name": "final/test_mean"},
 
     "parameters": {
-        "setting": {"value": "zero_shot"},
+        "setting": {"value": "base_zero_shot"},
         "pt_lr": {"value": 1e-7},
         "pt_feat_p": {"value": 0.2},
         "pt_edge_p": {"value": 0.2},
@@ -24,10 +24,10 @@ sweep_config = {
         "no_split": {"value": True},
 
         "pt_data": {"value": "default"},
-        "sft_data": {"value": "chemhiv"},
+        "sft_data": {"value": "chempcba"},
 
         "dataset": {"value": dataset},
-        "group": {"value": f"sweep-molecule-zero-shot"},
+        "group": {"value": f"sweep-molecule-base-zero-shot"},
 
         "sft_epochs": {"min": 5, "max": 100, "q": 5, "distribution": "q_uniform"},
         "sft_lr": {"values": [1e-4, 1e-5, 1e-6, 1e-7, 1e-8]},
@@ -38,4 +38,4 @@ sweep_config = {
 
 sweep_id = wandb.sweep(sweep=sweep_config)
 
-wandb.agent(sweep_id, function=main_sweep, count=30)
+wandb.agent(sweep_id, function=main_sweep, count=1000)

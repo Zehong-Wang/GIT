@@ -128,12 +128,12 @@ def get_ft_loader(data, split, params):
                 shuffle=True,
                 num_workers=1,
             )
-        elif setting in ['zero_shot', 'in_context']:
+        elif setting in ['zero_shot', 'in_context', 'base_zero_shot']:
             train_loader = None
         else:
             raise ValueError('The setting is not supported.')
 
-        if setting in ['base']:
+        if setting in ['base', 'base_zero_shot']:
             val_dataset = data[split["val"]]
             test_dataset = data[split["test"]]
 

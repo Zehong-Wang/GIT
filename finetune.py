@@ -16,7 +16,7 @@ from data.finetune_data import get_data
 from data.pretrain_data import domain2task, dataset2domain
 from model.encoder import Encoder
 from model.finetune_model import TaskModel
-from utils.utils import seed_everything, load_params, mask2idx, get_scheduler, get_device_from_model, check_path
+from utils.utils import seed_everything, load_params, mask2idx, get_scheduler, get_device_from_model, check_path, get_n_params
 from utils.args import get_args_finetune
 from utils.early_stop import EarlyStopping
 from utils.logger import Logger
@@ -99,6 +99,8 @@ def run(params):
     if params["pt_data"] != 'na':
         if params['sft_data'] == 'na':
             template = "lr_{}_hidden_{}_layer_{}_backbone_{}_fp_{}_ep_{}_alignreg_{}_pt_data_{}"
+            if params['train_ratio'] != 1.0:
+                template += "_{}".format(params['train_ratio'])
             base_path = params['pt_model_path'] if params["sft_data"] == 'na' else params['sft_model_path']
             path = osp.join(base_path,
                             template.format(params['pt_lr'], params['hidden_dim'], params['num_layers'],
@@ -137,6 +139,8 @@ def run(params):
         task_model = deepcopy(model)
         optimizer = AdamW(task_model.parameters(), lr=params["lr"], weight_decay=params["decay"])
         stopper = EarlyStopping(patience=params["early_stop"])
+
+        print(get_n_params(task_model))
 
         for epoch in range(1, params["epochs"] + 1):
             loss = finetune(model=task_model, data=data, split=split, optimizer=optimizer, params=params)
@@ -216,9 +220,12 @@ def main():
             params.update(default_params['base'])
             params.update(default_params[task][dataset])
 
-    if params["setting"] in ["base_zero_shot", "zero_shot", "in_context"]:
+    if params["setting"] in ["zero_shot", "in_context"]:
         params["n_task"] = 500
         params["epochs"] = 1
+    elif params['setting'] in ['base_zero_shot']:
+        params['epochs'] = 1
+        params['repeat'] = 1
 
     if params['dataset'] == 'products':
         params['bs'] = 1024
@@ -261,9 +268,12 @@ def main_sweep():
         if params['bs'] == 0:
             params['bs'] = 1024
 
-    if params["setting"] in ["base_zero_shot", "zero_shot", "in_context"]:
+    if params["setting"] in ["zero_shot", "in_context"]:
         params["n_task"] = 500
         params["epochs"] = 1
+    elif params['setting'] in ['base_zero_shot']:
+        params['epochs'] = 1
+        params['repeat'] = 1
 
     if params['dataset'] == 'products':
         params['bs'] = 1024

@@ -7,11 +7,11 @@ print(os.path.abspath(""))
 
 from finetune import main, main_sweep
 
-dataset = 'arxiv' # [cora, citeseer, pubmed, dblp, arxiv23, arxiv]
+dataset = 'muv' # ['chempcba', 'chemhiv', 'bbbp', 'bace', 'toxcast', 'cyp450', 'tox21', 'muv']
 
 sweep_config = {
     "project": "SGFM-Finetune",
-    "name": f"Citation FT Learning Hyper-parameter Tuning -- {dataset}",
+    "name": f"Molecule FT Learning Hyper-parameter Tuning -- {dataset}",
     "method": "bayes",
     "metric": {"goal": "maximize", "name": "final/test_mean"},
 
@@ -23,15 +23,16 @@ sweep_config = {
         "pt_align_reg_lambda": {"value": 10.0},
 
         "pt_data": {"value": "default"},
-        # "sft_data": {"value": "arxiv"},
-        "sft_data": {"value": "na"},
+        "sft_data": {"value": "chempcba"},
         "dataset": {"value": dataset},
-        "task": {"value": "node"},
-        "group": {"value": f"sweep-citation-base"},
+        "task": {"value": "graph"},
+        "group": {"value": f"sweep-molecule-base"},
 
-        "sft_epochs": {"value": 100},
+        "sft_epochs": {"value": 10},
         "sft_lr": {"values": [1e-4, 1e-5, 1e-6, 1e-7, 1e-8]},
 
+        "epochs": {"value": 300},
+        "early_stop": {"value": 30},
         "normalize": {"values": ["batch", "none"]},
         "lr": {"values": [1e-3, 1e-4, 1e-5, 1e-6]},
         "decay": {"values": [0.0, 1e-6]},

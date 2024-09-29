@@ -7,7 +7,7 @@ print(os.path.abspath(""))
 
 from finetune import main, main_sweep
 
-dataset = 'dblp' # [cora, citeseer, pubmed, dblp, arxiv23]
+dataset = 'arxiv' # [cora, citeseer, pubmed, dblp, arxiv23, arxiv]
 
 sweep_config = {
     "project": "SGFM-Finetune",

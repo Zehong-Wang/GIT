@@ -26,7 +26,9 @@ node:
     sft_epochs: 120
     sft_lr: 0.0001
   arxiv:
-
+    normalize: "batch"
+    sft_epochs: 200
+    sft_lr: 0.0001
   bookhis:
     normalize: "batch"
     sft_epochs: 220
@@ -52,7 +54,9 @@ node:
     sft_epochs: 90
     sft_lr: 0.0000001
   products:
-
+    normalize: "batch"
+    sft_epochs: 220
+    sft_lr: 0.0001
 edge:
   WN18RR:
     normalize: "none"
@@ -83,7 +87,9 @@ edge:
     sft_epochs: 100
     sft_lr: 0.00001
   FB15K237:
-
+    normalize: "none"
+    sft_epochs: 400
+    sft_lr: 0.00001
 graph:
   chemhiv:
     normalize: "batch"
