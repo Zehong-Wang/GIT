@@ -1,3 +1,4 @@
+import os
 import os.path as osp
 import random
 from copy import deepcopy
@@ -51,8 +52,6 @@ def pretrain(model, loader, optimizer, scheduler=None, **kwargs):
 
         if scheduler:
             scheduler.step()
-
-        # model.ema_update_sem_encoder(decay=params["ema"])
 
         wandb.log(
             {
@@ -112,12 +111,11 @@ def run(params):
 
 if __name__ == "__main__":
     params = get_args_pretrain()
-    # TODO: Anonymize the path
-    params['data_path'] = '/scratch365/zwang43/SGFM/benchmark/cache_data'
-    params['model_path'] = '/scratch365/zwang43/SGFM/model/pretrain_model'
+    params['data_path'] = osp.join(os.path.dirname(__file__), 'cache_data')
+    params['model_path'] = osp.join(os.path.dirname(__file__), 'model', 'pretrain_model')
 
     wandb.init(
-        project="SGFM-Pretrain",
+        project="GIT-Pretrain",
         name="LR:{} | Layers:{} | Fan:{}".format(params["lr"], params["num_layers"], params["fanout"]),
         mode="disabled" if params["debug"] else "online",
         group=params['group'],

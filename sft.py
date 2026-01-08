@@ -100,15 +100,15 @@ def run(params):
 
 if __name__ == "__main__":
     params = get_args_sft()
-    params['data_path'] = '/scratch365/zwang43/SGFM/benchmark/cache_data'  # Should be anonymized
-    params['pt_model_path'] = "/scratch365/zwang43/SGFM/model/pretrain_model/"  # Should be anonymized
-    params['sft_model_path'] = "/scratch365/zwang43/SGFM/model/sft_model/"  # Should be anonymized
+    params['data_path'] = osp.join(os.path.dirname(__file__), 'cache_data')
+    params['pt_model_path'] = osp.join(os.path.dirname(__file__), 'model', 'pretrain_model')
+    params['sft_model_path'] = osp.join(os.path.dirname(__file__), 'model', 'sft_model')
 
     dataset = params["dataset"]
     task = domain2task[dataset2domain[dataset]]
     params['task'] = task
     if task == "graph":
-        if params['bs'] == 0:
+        assert params['bs'] != 0
             params['bs'] = 4096
 
     if params["use_params"]:
@@ -124,9 +124,9 @@ if __name__ == "__main__":
         params['bs'] = 4096
 
     wandb.init(
-        project="SGFM-SFT",
+        project="GIT-SFT",
         name="Data:{} | PT-Epoch:{}".format(str.upper(params["dataset"]), params["pt_epochs"]),
-        mode="disabled" if params["debug"] else "online",  # sweep only works in online mode
+        mode="disabled" if params["debug"] else "online", 
         config=params,
         group=params['group'],
     )
