@@ -1,0 +1,122 @@
+base:
+  pt_lr: 0.0000001
+  pt_epochs: 10
+  pt_feat_p: 0.2
+  pt_edge_p: 0.2
+  pt_align_reg_lambda: 10.0
+node:
+  cora:
+    normalize: "none"
+    sft_epochs: 115
+    sft_lr: 0.0001
+  citeseer:
+    normalize: "batch"
+    sft_epochs: 170
+    sft_lr: 0.0001
+  pubmed:
+    normalize: "none"
+    sft_epochs: 250
+    sft_lr: 0.00000001
+  arxiv23:
+    normalize: "batch"
+    sft_epochs: 200
+    sft_lr: 0.0001
+  dblp:
+    normalize: "batch"
+    sft_epochs: 120
+    sft_lr: 0.0001
+  arxiv:
+    normalize: "batch"
+    sft_epochs: 200
+    sft_lr: 0.0001
+  bookhis:
+    normalize: "batch"
+    sft_epochs: 220
+    sft_lr: 0.0001
+  bookchild:
+    normalize: "batch"
+    sft_epochs: 220
+    sft_lr: 0.0001
+  elecomp:
+    normalize: "none"
+    sft_epochs: 10
+    sft_lr: 0.00000001
+  elephoto:
+    normalize: "batch"
+    sft_epochs: 260
+    sft_lr: 0.0000001
+  sportsfit:
+    normalize: "batch"
+    sft_epochs: 240
+    sft_lr: 0.0001
+  amazonratings:
+    normalize: "batch"
+    sft_epochs: 90
+    sft_lr: 0.0000001
+  products:
+    normalize: "batch"
+    sft_epochs: 220
+    sft_lr: 0.0001
+edge:
+  WN18RR:
+    normalize: "none"
+    sft_epochs: 500
+    sft_lr: 0.00001
+  codex_s:
+    normalize: "batch"
+    sft_epochs: 400
+    sft_lr: 0.0001
+  codex_m:
+    normalize: "none"
+    sft_epochs: 300
+    sf_lr: 0.00001
+  codex_l:
+    normalize: "batch"
+    sft_epochs: 240
+    sft_lr: 0.00001
+  NELL995:
+    normalize: "batch"
+    sft_epochs: 90
+    sft_lr: 0.0001
+  GDELT:
+    normalize: "none"
+    sft_epochs: 400
+    sft_lr: 0.0001
+  ICEWS1819:
+    normalize: "batch"
+    sft_epochs: 100
+    sft_lr: 0.00001
+  FB15K237:
+    normalize: "none"
+    sft_epochs: 400
+    sft_lr: 0.00001
+graph:
+  chemhiv:
+    normalize: "batch"
+    sft_epochs: 70
+    sft_lr: 0.0001
+  bbbp:
+    normalize: "batch"
+    sft_epochs: 100
+    sft_lr: 0.0000001
+  bace:
+    normalize: "batch"
+    sft_epochs: 15
+    sft_lr: 0.0000001
+  toxcast:
+    normalize: "batch"
+    sft_epochs: 40
+    sft_lr: 0.0000001
+  cyp450:
+    normalize: "batch"
+    sft_epochs: 45
+    sft_lr: 0.0000001
+  tox21:
+    normalize: "batch"
+    sft_epochs: 10
+    sft_lr: 0.000001
+  muv:
+    normalize: "batch"
+    sft_epochs: 40
+    sft_lr: 0.00000001
+  chempcba:

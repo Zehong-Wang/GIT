@@ -1,0 +1,264 @@
+base:
+  pt_lr: 0.0000001
+  pt_epochs: 10
+  pt_feat_p: 0.2
+  pt_edge_p: 0.2
+  pt_align_reg_lambda: 10.0
+node:
+  cora:
+    normalize: "none"
+    sft_lr: 0.0000001
+    sft_epochs: 100
+    lr: 0.0001
+    decay: 0
+  citeseer:
+    normalize: "batch"
+    sft_lr: 0.0001
+    sft_epochs: 100
+    lr: 0.0001
+    decay: 0
+  pubmed:
+    normalize: "none"
+    sft_lr: 0.000001
+    sft_epochs: 100
+    lr: 0.00001
+    decay: 0.000001
+  dblp:
+    normalize: "none"
+    sft_lr: 0.00001
+    sft_epochs: 100
+    lr: 0.0001
+    decay: 0
+  arxiv23:
+    normalize: "none"
+    sft_lr: 0.0000001
+    sft_epochs: 100
+    lr: 0.0001
+    decay: 0.000001
+  arxiv:
+    normalize: "batch"
+    sft_lr: 0.000001
+    sft_epochs: 100
+    lr: 0.001
+    decay: 0.000001
+  bookhis:
+    normalize: "none"
+    sft_lr: 0.00001
+    sft_epochs: 100
+    lr: 0.001
+    decay: 0
+  bookchild:
+    normalize: "none"
+    sft_lr: 0.0000001
+    sft_epochs: 100
+    lr: 0.0001
+    decay: 0.000001
+  elecomp:
+    normalize: "none"
+    sft_lr: 0.0000001
+    sft_epochs: 100
+    lr: 0.001
+    decay: 0
+  elephoto:
+    normalize: "none"
+    sft_lr: 0.0000001
+    sft_epochs: 100
+    lr: 0.0001
+    decay: 0.000001
+  sportsfit:
+    normalize: "batch"
+    sft_lr: 0.00000001
+    sft_epochs: 100
+    lr: 0.0001
+    decay: 0.000001
+  amazonratings:
+    normalize: "batch"
+    sft_lr: 0.0000001
+    sft_epochs: 100
+    lr: 0.0001
+    decay: 0.000001
+  products:
+    normalize: "batch"
+    sft_lr: 0.0000001
+    sft_epochs: 100
+    lr: 0.0001
+    decay: 0.000001
+edge:
+  WN18RR:
+    normalize: "batch"
+    sft_lr: 0.00000001
+    sft_epochs: 100
+    lr: 0.0001
+    decay: 0.000001
+  codex_s:
+    normalize: "batch"
+    sft_lr: 0.0000001
+    sft_epochs: 100
+    lr: 0.0001
+    decay: 0.000001
+  codex_m:
+    normalize: "batch"
+    sft_lr: 0.00001
+    sft_epochs: 100
+    lr: 0.001
+    decay: 0.000001
+  codex_l:
+    normalize: "batch"
+    sft_lr: 0.0000001
+    sft_epochs: 100
+    lr: 0.001
+    decay: 0.000001
+  NELL995:
+    normalize: "batch"
+    sft_lr: 0.00000001
+    sft_epochs: 100
+    lr: 0.001
+    decay: 0
+  GDELT:
+    normalize: "batch"
+    sft_lr: 0.0001
+    sft_epochs: 100
+    lr: 0.001
+    decay: 0
+  ICEWS1819:
+    normalize: "batch"
+    sft_lr: 0.00000001
+    sft_epochs: 100
+    lr: 0.001
+    decay: 0.000001
+  Enron:
+    normalize: "none"
+    sft_lr: 0.000001
+    sft_epochs: 100
+    lr: 0.001
+    decay: 0.000001
+  Googlemap_CT:
+    normalize: "none"
+    sft_lr: 0.000001
+    sft_epochs: 100
+    lr: 0.001
+    decay: 0.000001
+  FB15K237:
+    normalize: "batch"
+    sft_lr: 0.0000001
+    sft_epochs: 100
+    lr: 0.001
+    decay: 0.000001
+link_pred:
+  cora:
+    normalize: "batch"
+    sft_lr: 0.0000001
+    sft_epochs: 100
+    lr: 0.0001
+    decay: 0.000001
+  citeseer:
+    normalize: "batch"
+    sft_lr: 0.00001
+    sft_epochs: 100
+    lr: 0.00001
+    decay: 0.000001
+  pubmed:
+    normalize: "batch"
+    sft_lr: 0.00001
+    sft_epochs: 100
+    lr: 0.00001
+    decay: 0.000001
+  arxiv23:
+    normalize: "batch"
+    sft_lr: 0.000001
+    sft_epochs: 100
+    lr: 0.001
+    decay: 0.000001
+  arxiv:
+    normalize: "batch"
+    sft_lr: 0.000001
+    sft_epochs: 100
+    lr: 0.001
+    decay: 0.000001
+  dblp:
+    normalize: "none"
+    sft_lr: 0.00000001
+    sft_epochs: 100
+    lr: 0.001
+    decay: 0
+  bookhis:
+    normalize: "batch"
+    sft_lr: 0.00001
+    sft_epochs: 100
+    lr: 0.00001
+    decay: 0.000001
+  bookchild:
+
+  elecomp:
+
+  elephoto:
+    normalize: "batch"
+    sft_lr: 0.0001
+    sft_epochs: 100
+    lr: 0.0001
+    decay: 0
+  sportsfit:
+
+  amazonratings:
+    normalize: "none"
+    sft_lr: 0.00000001
+    sft_epochs: 100
+    lr: 0.001
+    decay: 0.000001
+graph:
+  bbbp:
+    normalize: "batch"
+    sft_lr: 0.0000001
+    sft_epochs: 10
+    lr: 0.001
+    decay: 0.000001
+    epochs: 300
+    early_stop: 30
+  bace:
+    normalize: "batch"
+    sft_lr: 0.000001
+    sft_epochs: 10
+    lr: 0.0001
+    decay: 0
+    epochs: 300
+    early_stop: 30
+  toxcast:
+    normalize: "batch"
+    sft_lr: 0.00000001
+    sft_epochs: 10
+    lr: 0.0001
+    decay: 0.000001
+    epochs: 300
+    early_stop: 30
+  tox21:
+    normalize: "batch"
+    sft_lr: 0.0000001
+    sft_epochs: 10
+    lr: 0.0001
+    decay: 0.000001
+    epochs: 300
+    early_stop: 30
+  cyp450:
+    normalize: "batch"
+    sft_lr: 0.0000001
+    sft_epochs: 10
+    lr: 0.0001
+    decay: 0.000001
+    epochs: 300
+    early_stop: 30
+  chemhiv:
+    normalize: "batch"
+    sft_lr: 0.0000001
+    sft_epochs: 10
+    lr: 0.00001
+    decay: 0
+    epochs: 300
+    early_stop: 30
+  muv:
+    normalize: "none"
+    sft_lr: 0.000001
+    sft_epochs: 10
+    lr: 0.0001
+    decay: 0
+    epochs: 300
+    early_stop: 30

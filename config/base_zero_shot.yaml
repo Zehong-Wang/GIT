@@ -1,0 +1,39 @@
+base:
+  pt_lr: 0.0000001
+  pt_epochs: 10
+  pt_feat_p: 0.2
+  pt_edge_p: 0.2
+  pt_align_reg_lambda: 10.0
+graph:
+  chemhiv:
+    normalize: "batch"
+    sft_epochs: 25
+    sft_lr: 0.00000001
+  bbbp:
+    normalize: "batch"
+    sft_epochs: 65
+    sft_lr: 0.000001
+  bace:
+    normalize: "batch"
+    sft_epochs: 60
+    sft_lr: 0.00001
+  toxcast:
+    normalize: "batch"
+    sft_epochs: 85
+    sft_lr: 0.0001
+  cyp450:
+    normalize: "none"
+    sft_epochs: 95
+    sft_lr: 0.00001
+  tox21:
+    normalize: "batch"
+    sft_epochs: 90
+    sft_lr: 0.0000001
+  muv:
+    normalize: "none"
+    sft_epochs: 90
+    sft_lr: 0.00001
+  chempcba:
+    normalize: "batch"
+    sft_epochs: 75
+    sft_lr: 0.0001
